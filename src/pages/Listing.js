@@ -30,16 +30,19 @@ function Listing(props)
     const [suggestions, setSuggestions] = useState([]);
     const [isShow, setIsShow] = useState(true);
 
+    const [typingTimeout, setTypingTimeout] = React.useState(0);
     const handleChangeSearch = (value) => {
         const paramsChanges = { ...params, s: value, page: 1 };
         setParams(paramsChanges);
         setIsShow(true);
-    };
 
-    const handleLoadData = () => {
-        setIsShow(false);
-        dispatch(Actions.getList(params));
-    }
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+        setTypingTimeout(setTimeout(() => {
+            dispatch(Actions.getList(paramsChanges));
+        }, 700));
+    };
 
     const handleDetail = (item) => {
         dispatch(Actions.getSelected(item));
@@ -58,22 +61,13 @@ function Listing(props)
     return (
         <div>
             <div style={{ padding: 10 }}>
-                <table width="100%">
-                        <tr>
-                            <td>
-                                <Autocomplete 
-                                    placeholder='Search'
-                                    suggestions={suggestions}
-                                    onChange={handleChangeSearch}
-                                    params={params}
-                                    isShow={isShow}
-                                />
-                            </td>
-                            <td>
-                                <Button size={'small'} onClick={handleLoadData}>Load Data</Button>
-                            </td>
-                        </tr>
-                </table>
+                <Autocomplete 
+                    placeholder='Search'
+                    suggestions={suggestions}
+                    onChange={handleChangeSearch}
+                    params={params}
+                    isShow={isShow}
+                />
             </div>
             <Table striped bordered hover>
                 <thead>
