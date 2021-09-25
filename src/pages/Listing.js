@@ -41,7 +41,7 @@ function Listing(props)
         }
         setTypingTimeout(setTimeout(() => {
             dispatch(Actions.getList(paramsChanges));
-        }, 700));
+        }, 500));
     };
 
     const handleDetail = (item) => {
