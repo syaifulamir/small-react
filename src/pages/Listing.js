@@ -3,6 +3,7 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import { Table, Button, Form, FormText } from 'react-bootstrap';
 import * as Actions from "../store/actions";
 import { useHistory } from "react-router-dom";
+import Autocomplete from '../components/Autocomplete';
 
 function Listing(props)
 {
@@ -20,27 +21,23 @@ function Listing(props)
     }
 
     useEffect(() => {
-        loadData(params);
+        dispatch(Actions.getList(params));
     }, [dispatch]);
 
     const [params, setParams] = useState(films.params);
     const [imgUrl, setImgUrl] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
+    const [isShow, setIsShow] = useState(true);
 
     const [typingTimeout, setTypingTimeout] = React.useState(0);
-    const handleChangeSearch = event => {
-        let value = event.target.value
+    const handleChangeSearch = (value) => {
         setParams({ ...params, s: value, page: 1 });
-        if (typingTimeout) {
-            clearTimeout(typingTimeout);
-        }
-        setTypingTimeout(setTimeout(() => {
-            dispatch(Actions.getList({ ...params, s: value }));
-        }, 500));
-        ;
+        setIsShow(true);
     };
 
-    const loadData = (params) => {
+    const handleLoadData = () => {
+        setIsShow(false);
         dispatch(Actions.getList(params));
     }
 
@@ -61,10 +58,22 @@ function Listing(props)
     return (
         <div>
             <div style={{ padding: 10 }}>
-                <Form.Group>
-                    <Form.Label>Search</Form.Label>
-                    <Form.Control type="text" placeholder="Search" onChange={handleChangeSearch} value={params.s}/>
-                </Form.Group>
+                <table width="100%">
+                        <tr>
+                            <td>
+                                <Autocomplete 
+                                    placeholder='Search'
+                                    suggestions={suggestions}
+                                    onChange={handleChangeSearch}
+                                    params={params}
+                                    isShow={isShow}
+                                />
+                            </td>
+                            <td>
+                                <Button size={'small'} onClick={handleLoadData}>Load Data</Button>
+                            </td>
+                        </tr>
+                </table>
             </div>
             <Table striped bordered hover>
                 <thead>
