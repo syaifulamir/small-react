@@ -44,7 +44,7 @@ export function getListAutoComplete(params)
             if (response.data.Response == 'True') {
                 return response.data.Search;
             }
-            
+
             return [];
         }); 
     

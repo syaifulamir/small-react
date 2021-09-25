@@ -30,9 +30,9 @@ function Listing(props)
     const [suggestions, setSuggestions] = useState([]);
     const [isShow, setIsShow] = useState(true);
 
-    const [typingTimeout, setTypingTimeout] = React.useState(0);
     const handleChangeSearch = (value) => {
-        setParams({ ...params, s: value, page: 1 });
+        const paramsChanges = { ...params, s: value, page: 1 };
+        setParams(paramsChanges);
         setIsShow(true);
     };
 

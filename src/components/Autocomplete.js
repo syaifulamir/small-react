@@ -11,7 +11,7 @@ const Autocomplete = (props) => {
   const [active, setActive] = useState(0);
   const [filtered, setFiltered] = useState([]);
   const [isShow, setIsShow] = useState(false);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(props.params.s);
   
   const onChange = e => {
     const input = e.currentTarget.value;
