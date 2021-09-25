@@ -17,7 +17,7 @@ export function getList(params)
                 dispatch({
                     type   : GET_FILMS,
                     payload: response.data.Search,
-                    set_first: (params.page) ? true : false
+                    set_first: (params.page === 1) ? true : false
                 });
             } else {
                 dispatch({
