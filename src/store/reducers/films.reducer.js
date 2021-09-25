@@ -15,9 +15,13 @@ const filmReducer = function (state = initialState, action) {
     {
         case Actions.GET_FILMS:
         {
+            let datas = [...state.datas, ...action.payload];
+            if (action.set_first == 1) {
+                datas = action.payload;
+            }
             return {
                 ...state,
-                datas: [...state.datas, ...action.payload]
+                datas: datas
             };
         }
         case Actions.GET_FILM_SELECTED:

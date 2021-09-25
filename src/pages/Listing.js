@@ -30,7 +30,7 @@ function Listing(props)
     const [typingTimeout, setTypingTimeout] = React.useState(0);
     const handleChangeSearch = event => {
         let value = event.target.value
-        setParams({ ...params, s: value });
+        setParams({ ...params, s: value, page: 1 });
         if (typingTimeout) {
             clearTimeout(typingTimeout);
         }
