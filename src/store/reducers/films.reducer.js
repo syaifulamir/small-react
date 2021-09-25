@@ -1,6 +1,11 @@
 import * as Actions from '../actions';
 
 const initialState = {
+    params: {
+        apikey: 'faf7e5bb',
+        s: '',
+        page: 1
+    },
     datas: [],
     selected: {}
 };
@@ -27,6 +32,13 @@ const filmReducer = function (state = initialState, action) {
             return {
                 ...state,
                 datas: []
+            };
+        }
+        case Actions.SET_PARAMS:
+        {
+            return {
+                ...state,
+                params: action.payload
             };
         }
         default:

@@ -23,11 +23,7 @@ function Listing(props)
         loadData(params);
     }, [dispatch]);
 
-    const [params, setParams] = useState({
-        apikey: 'faf7e5bb',
-        s: '',
-        page: 1
-    });
+    const [params, setParams] = useState(films.params);
     const [imgUrl, setImgUrl] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
